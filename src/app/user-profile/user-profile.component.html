@@ -1,0 +1,42 @@
+<div>
+    <app-nav-bar></app-nav-bar>
+</div>
+
+<div *ngFor="let user of totalUsers;" style="display: flex;border: 1px solid black; margin: 20px;">
+    <div id="photo" style="height: 325px;width: 310px; ">
+<img [src]="user.image" alt="">
+    </div>
+    <div id="details" style="margin-top: 20px;">
+        <div>
+            <span>First Name: {{user.firstName}}</span>
+        </div>
+        <div>
+            <span>Last Name: {{user.lastName}}</span>
+        </div>
+        <div>
+            <span>Email: {{user.email}}</span>
+        </div>
+        <div>
+            <span>Contact: {{user.contact}}</span>
+        </div>
+        <div>
+            <span>Age: {{user.age}}</span>
+        </div>
+        <div>
+            <span>State: {{user.state}}</span>
+        </div>
+        <div>
+            <span>Country: {{user.country}}</span>
+        </div>
+        <div>
+            <span>Address: {{user.address}}</span>
+        </div>
+        <div>
+            <span>Tags: {{user.tags}}</span>
+        </div>
+    
+    </div>
+    
+</div>
+<app-footer></app-footer>
+

@@ -1,0 +1,9 @@
+.div-space{
+    margin-left: 20px;
+}
+.no-underline{
+    text-decoration: none;
+}
+.mat-toolbar{
+    background-color: rgba(255, 255, 255, 0.5);
+}

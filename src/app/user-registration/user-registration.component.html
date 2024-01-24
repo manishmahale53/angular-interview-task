@@ -1,0 +1,129 @@
+<nav class="btn-color">
+  <h2 mat-dialog-title class="text-white">Register</h2>
+</nav>
+<mat-dialog-content class="mat-typography">
+  <div class="form-div">
+    <form class="example-form" [formGroup]="userForm" autocomplete="off">
+
+      <div id="photo" class="photo-size">
+        <img [src]="imageUrl" *ngIf="imageUrl" class="img-size">
+      </div>
+      <div>
+        <input type="file" (change)="handleFileInput($event)" formControlName="image">
+      </div>
+
+      <div>
+
+        <table class="example-full-width" cellspacing="0">
+          <tr>
+            <td><mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>First name</mat-label>
+                <input matInput formControlName="firstName">
+                <mat-error *ngIf="validateFormFields('firstName')">Only alphabets are allowed and maximum length is
+                  20</mat-error>
+              </mat-form-field></td>
+            <td><mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="lastName">
+              </mat-form-field></td>
+          </tr>
+        </table>
+
+        <p>
+          <mat-form-field class="example-full-width" appearance="outline" style="margin-top: 20px;">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email">
+          </mat-form-field>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Contact</mat-label>
+            <input matInput formControlName="contact">
+          </mat-form-field>
+          <mat-label>Age</mat-label>&nbsp;
+          <mat-slider min="20" max="60" step="1" showTickMarks discrete [displayWith]="formatLabel">
+            <input matSliderThumb formControlName="age">
+          </mat-slider>
+        </p>
+
+
+        <div class="example-full-width" cellspacing="0">
+          <div>
+            <p>
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>State</mat-label>
+                <input matInput formControlName="state">
+              </mat-form-field>
+
+            </p>
+            <p><mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Country</mat-label>
+                <input matInput placeholder="Ex. India" formControlName="country">
+              </mat-form-field></p>
+
+            <div formGroupName="address">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Select an address type</mat-label>
+                <mat-select formControlName="type" (selectionChange)="onTypeChange($event)">
+                  <mat-option value="home">Home</mat-option>
+                  <mat-option value="company">Company</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div [ngSwitch]="userForm.get('address.type')?.value">
+                <div *ngSwitchCase="'home'">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Home Address 1</mat-label>
+                    <input matInput formControlName="homeAddress1" required>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Home Address 2</mat-label>
+                    <input matInput formControlName="homeAddress2">
+                  </mat-form-field>
+                </div>
+                <div *ngSwitchCase="'company'">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Company Address 1</mat-label>
+                    <input matInput formControlName="companyAddress1" required>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Company Address 2</mat-label>
+                    <input matInput formControlName="companyAddress2">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+            <p>
+              <mat-form-field class="example-chip-list" appearance="outline">
+                <mat-label>Tags</mat-label>
+                <mat-chip-grid #chipGrid aria-label="Enter fruits">
+                  @for (tag of tags; track tag) {
+                  <mat-chip-row (removed)="remove(tag)" [editable]="true" (edited)="edit(tag, $event)"
+                    [aria-description]="'press enter to edit ' + tag.name">
+                    {{tag.name}}
+                    <button matChipRemove [attr.aria-label]="'remove ' + tag.name">
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip-row>
+                  }
+                  <input placeholder="New tag..." [matChipInputFor]="chipGrid"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                    (matChipInputTokenEnd)="add($event)" formControlName="tags">
+                </mat-chip-grid>
+              </mat-form-field>
+
+            </p>
+          </div>
+        </div>
+
+
+      </div>
+    </form>
+  </div>
+
+
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial class="btn-color text-white" (click)="submitForm()"
+    [disabled]="userForm.invalid">Submit</button>
+</mat-dialog-actions>
